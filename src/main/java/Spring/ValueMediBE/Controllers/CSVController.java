@@ -38,6 +38,8 @@ public class CSVController {
             data.setDeal(Integer.parseInt(record.getString("deal")));
             data.setFree(Integer.parseInt(record.getString("free")));
             data.setExp(record.getString("exp"));
+            data.setMrp(Double.parseDouble(record.getString("mrp")));
+            data.setRate(Double.parseDouble(record.getString("rate")));
             myData.add(data);
         });
         inventoryRepository.saveAll(myData);
