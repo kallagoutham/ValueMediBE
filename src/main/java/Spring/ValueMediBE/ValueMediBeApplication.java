@@ -8,6 +8,7 @@ public class ValueMediBeApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ValueMediBeApplication.class, args);
+
 	}
 
 }
