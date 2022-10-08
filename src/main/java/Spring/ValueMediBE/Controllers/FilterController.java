@@ -17,9 +17,9 @@ public class FilterController {
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public List<MyCSVData> findById(@PathVariable("id")String id, @RequestParam(name = "product" , defaultValue = "") String product,
-                                    @RequestParam(name="exp",defaultValue = "false") boolean exp, @RequestParam(name="page",defaultValue = "0")int page,
+                                    @RequestParam(name="exp",defaultValue = "true") boolean notexp, @RequestParam(name="page",defaultValue = "0")int page,
                                     @RequestParam(name="size",defaultValue = "10")int size){
 
-        return filterService.findAllByName(id,product,exp, PageRequest.of(page,size));
+        return filterService.findAllByName(id,product,notexp, PageRequest.of(page,size));
     }
 }
