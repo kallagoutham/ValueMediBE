@@ -3,9 +3,7 @@ package Spring.ValueMediBE.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 
 @Entity
@@ -20,6 +18,8 @@ public class MyCSVData {
     private Long id;
     @Column(name = "code")
     private String code;
+    @Column(name = "batch")
+    private String batch;
     @Column(name = "name")
     private String name;
     @Column(name = "stock")
@@ -29,11 +29,11 @@ public class MyCSVData {
     @Column(name = "free")
     private Integer free;
     @Column(name = "mrp")
-    private Double mrp;
+    private String mrp;
     @Column(name = "rate")
-    private Double rate;
+    private String rate;
     @Column(name = "exp")
-    private String exp;
+    private Date exp;
     @Column(name = "company")
     private String company;
     @Column(name = "supplier")

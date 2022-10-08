@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +30,7 @@ public class CSVController {
         settings.setHeaderExtractionEnabled(true);
         CsvParser parser=new CsvParser(settings);
         List<Record> Data=parser.parseAllRecords(inputStream);
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
         Data.forEach(record -> {
             MyCSVData data=new MyCSVData();
             data.setCode(record.getString("code"));
@@ -37,9 +40,18 @@ public class CSVController {
             data.setStock(Long.parseLong(record.getString("stock")));
             data.setDeal(Integer.parseInt(record.getString("deal")));
             data.setFree(Integer.parseInt(record.getString("free")));
-            data.setExp(record.getString("exp"));
-            data.setMrp(Double.parseDouble(record.getString("mrp")));
-            data.setRate(Double.parseDouble(record.getString("rate")));
+            try {
+                data.setExp(sdf.parse(record.getString("exp"))) ;
+            } catch (ParseException e) {
+                try {
+                    data.setExp(sdf.parse("01/01/1900"));
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            data.setBatch(record.getString("batch"));
+            data.setMrp(record.getString("mrp"));
+            data.setRate(record.getString("rate"));
             myData.add(data);
         });
         inventoryRepository.saveAll(myData);
